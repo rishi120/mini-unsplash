@@ -2,65 +2,85 @@
 
 html,
 body {
-  padding: 0;
-  margin: 0;
+    padding: 0;
+    margin: 0;
+
+    &::-webkit-scrollbar {
+        width: 0.5em;
+    }
+
+    &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: darkgrey;
+    }
 }
 
 .heading {
-  color:black;
+    color: black;
 }
+
 section {
-  padding: 0 20px 20px 20px;
-  .photoGrid {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    grid-gap: 30px;
-    .photoWrapper {
-      position: relative;
-      img {
-        width: 450px;
-        height: 400px;
-        object-fit: cover;
-        border-radius: 8px;
-        box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
-      }
-      h1 {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 95%;
-        margin: auto;
-        padding: 15px 0;
-        border-bottom-right-radius: 10px;
-        border-bottom-left-radius: 10px;
-        color: #fff;
-        font-size: 15px;
-        background-color: rgb;
-        background-color: rgba(0, 0, 0, 0.7);
-        font-family: "Source Sans Pro", sans-serif;
-        letter-spacing: 1px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        span {
-          display: block;
-          text-align: left;
-          padding-left: 12px;
+    padding: 0 20px 20px 20px;
+
+    .photoGrid {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        grid-gap: 30px;
+
+        .photoWrapper {
+            position: relative;
+
+            img {
+                width: 450px;
+                height: 400px;
+                object-fit: cover;
+                border-radius: 8px;
+                box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+            }
+
+            h1 {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 95%;
+                margin: auto;
+                padding: 15px 0;
+                border-bottom-right-radius: 10px;
+                border-bottom-left-radius: 10px;
+                color: #fff;
+                font-size: 15px;
+                background-color: rgb;
+                background-color: rgba(0, 0, 0, 0.7);
+                font-family: "Source Sans Pro", sans-serif;
+                letter-spacing: 1px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                span {
+                    display: block;
+                    text-align: left;
+                    padding-left: 12px;
+                }
+
+                svg {
+                    padding-right: 10px;
+                    font-size: 18px;
+                    cursor: pointer;
+                }
+            }
         }
-        svg {
-          padding-right: 10px;
-          font-size: 18px;
-          cursor: pointer;
-        }
-      }
     }
-  }
-  .customModal {
-   img{
-     width: 80%;
-     height: 800px;
-     object-fit: cover;
-   }
-  }
+
+    .customModal {
+        img {
+            width: 80%;
+            height: 800px;
+            object-fit: cover;
+        }
+    }
 }

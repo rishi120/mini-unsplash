@@ -6,7 +6,7 @@ import Home from "./Home";
 const Data = createContext();
 
 const Main = () => {
-  const accessKey = "R1lPWiuQXByFD_d_TZ_LA8xgpDS_SSX7lC7J_C0PDNc";
+  const accessKey = process.env.REACT_APP_KEY;
   const [displayImages, setDisplayImages] = useState([]);
   // to display the modal.
   const [modal, showModal] = useState(false);
