@@ -32,6 +32,9 @@ const Main = () => {
     showModal(index);
     setShowImage(photo);
   };
+  const handleModalClose = () => {
+    showModal(false);
+  }
 
   const headingName = "The Photo App you always wanted";
   const values = {
@@ -40,7 +43,8 @@ const Main = () => {
     fetchData,
     handleImageModal,
     modal,
-    showImage
+    showImage,
+    handleModalClose
   };
   return (
     <Data.Provider value={values}>

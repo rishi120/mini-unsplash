@@ -39,7 +39,7 @@ const Home = () => {
                   <FontAwesomeIcon
                     icon={faMaximize}
                     onClick={() =>
-                      handleImageModal(items.urls.regular, items.id)
+                      handleImageModal(items.urls.full, items.id)
                     }
                   />
                 </h1>
