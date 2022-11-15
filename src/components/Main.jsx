@@ -2,6 +2,7 @@ import React, { useState, useEffect, createContext } from "react";
 import axios from "axios";
 import { baseUrl } from "./utils/baseUrl";
 import Home from "./Home";
+import { debounce } from "lodash";
 
 const Data = createContext();
 
@@ -19,7 +20,7 @@ const Main = () => {
 
   const fetchData = () => {
     axios
-      .get(baseUrl + `?client_id=${accessKey}&count=10`)
+      .get(baseUrl + `/photos/random/?client_id=${accessKey}&count=10`)
       .then((response) => {
         setDisplayImages([...displayImages, ...response.data]);
       })
@@ -32,19 +33,30 @@ const Main = () => {
     showModal(index);
     setShowImage(photo);
   };
+
   const handleModalClose = () => {
     showModal(false);
   }
 
-  const headingName = "The Photo App you always wanted";
+  const handleInputValue = debounce((e) => {
+    axios
+      .get(baseUrl + `/search/photos/?client_id=${accessKey}&page=1&query=${e}`)
+      .then((response) => {
+        setDisplayImages(response.data.results);
+      })
+      .catch((error) => {
+        console.log(error, "====== error");
+      });
+  }, 1000);
+
   const values = {
-    headingName,
     displayImages,
     fetchData,
     handleImageModal,
     modal,
     showImage,
-    handleModalClose
+    handleModalClose,
+    handleInputValue
   };
   return (
     <Data.Provider value={values}>

@@ -1,1 +1,1 @@
-export const baseUrl = "https://api.unsplash.com/photos/random";
+export const baseUrl = "https://api.unsplash.com/";
