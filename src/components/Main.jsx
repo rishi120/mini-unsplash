@@ -9,10 +9,13 @@ const Data = createContext();
 const Main = () => {
   const accessKey = process.env.REACT_APP_KEY;
   const [displayImages, setDisplayImages] = useState([]);
+  const [showSearchImages, setShowSearchImages] = useState([]);
   // to display the modal.
   const [modal, showModal] = useState(false);
   // to display the image inside the modal.
   const [showImage, setShowImage] = useState(false);
+  // to store the input value.
+  const [storeInputValue, setStoreInputValue] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -39,15 +42,17 @@ const Main = () => {
   }
 
   const handleInputValue = debounce((e) => {
+    setStoreInputValue(e);
     axios
       .get(baseUrl + `/search/photos/?client_id=${accessKey}&page=1&query=${e}`)
       .then((response) => {
-        setDisplayImages(response.data.results);
+        setShowSearchImages(response.data.results);
       })
       .catch((error) => {
         console.log(error, "====== error");
       });
   }, 1000);
+
 
   const values = {
     displayImages,
@@ -56,7 +61,9 @@ const Main = () => {
     modal,
     showImage,
     handleModalClose,
-    handleInputValue
+    handleInputValue,
+    storeInputValue,
+    showSearchImages
   };
   return (
     <Data.Provider value={values}>
