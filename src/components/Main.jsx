@@ -3,6 +3,7 @@ import axios from "axios";
 import { baseUrl } from "./utils/baseUrl";
 import Home from "./Home";
 import { debounce } from "lodash";
+import { saveAs } from 'file-saver'
 
 const Data = createContext();
 
@@ -53,6 +54,9 @@ const Main = () => {
       });
   }, 1000);
 
+  const handleImageDownload = (download, width, height) => {
+    saveAs(download + `&w=${width}&h=${height}`, 'image.jpg') // Put your image url here.
+  }
 
   const values = {
     displayImages,
@@ -63,7 +67,8 @@ const Main = () => {
     handleModalClose,
     handleInputValue,
     storeInputValue,
-    showSearchImages
+    showSearchImages,
+    handleImageDownload
   };
   return (
     <Data.Provider value={values}>

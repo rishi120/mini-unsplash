@@ -7,6 +7,8 @@ import { Data } from "./Main";
 import Custommodal from "./Modal";
 import backgroundImage from "../images/banner.jpg";
 import moment from "moment/moment";
+import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
+import Tooltip from '@mui/material/Tooltip';
 
 const Home = () => {
   const {
@@ -15,10 +17,12 @@ const Home = () => {
     handleImageModal,
     handleInputValue,
     storeInputValue,
-    showSearchImages
+    showSearchImages,
+    handleImageDownload
 
   } = useContext(Data);
   console.log(displayImages, "===== displayImages");
+  console.log(showSearchImages, "===== showSearchImages");
   return (
     <>
       <header>
@@ -35,33 +39,41 @@ const Home = () => {
       <section>
         <div>
           {storeInputValue ? (
-            <div className={styles.photoGrid}>
-              {showSearchImages.map((items, index) => {
-                return (
-                  <div className={styles.photoWrapper} key={index}>
-                    <img src={items.urls.regular} alt="Photos" className={styles.gridImage} />
-                    <div className={styles.photoContentWrapper}>
-                      <div className={styles.userProfile}>
-                        <div className={styles.col}>
-                          <img src={items.user.profile_image.medium} alt="User Photo" />
-                          <h1><a href={items.user.social.portfolio_url} target="blank">{items.user.name}</a></h1>
-                          <p>{moment(items.created_at).format("DD MMM YYYY")}</p>
-                        </div>
-                        <div className={styles.col}>
-                          <FontAwesomeIcon
-                            icon={faMaximize}
-                            onClick={() =>
-                              handleImageModal(items.urls.regular, items.id)
-                            }
-                          />
-                          <p>{items.likes} Likes</p>
+            <>
+              <div className={styles.photoGrid}>
+                {showSearchImages.map((items, index) => {
+                  return (
+                    <div className={styles.photoWrapper} key={index}>
+                      <img src={items.urls.regular} alt="Photos" className={styles.gridImage} />
+                      <div className={styles.photoContentWrapper}>
+                        <div className={styles.userProfile}>
+                          <div className={styles.col}>
+                            <img src={items.user.profile_image.medium} alt="User Photo" />
+                            <h1><a href={items.user.social.portfolio_url} target="blank">{items.user.name}</a></h1>
+                            <p>{moment(items.created_at).format("DD MMM YYYY")}</p>
+                          </div>
+                          <div className={styles.col}>
+                            <Tooltip title="Enlarge">
+                              <FontAwesomeIcon
+                                icon={faMaximize}
+                                onClick={() =>
+                                  handleImageModal(items.urls.regular, items.id)
+                                }
+                              />
+                            </Tooltip>
+                            <Tooltip title="Download">
+                              <DownloadForOfflineIcon onClick={() => handleImageDownload(items.links.download, items.width, items.height)} />
+                            </Tooltip>
+                            <p>{items.likes} Likes</p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                )
-              })}
-            </div>
+                  )
+                })}
+              </div>
+              <Custommodal />
+            </>
           ) : (
             <InfiniteScroll
               dataLength={displayImages.length}
@@ -88,12 +100,17 @@ const Home = () => {
                           <p>{moment(items.created_at).format("DD MMM YYYY")}</p>
                         </div>
                         <div className={styles.col}>
-                          <FontAwesomeIcon
-                            icon={faMaximize}
-                            onClick={() =>
-                              handleImageModal(items.urls.regular, items.id)
-                            }
-                          />
+                          <Tooltip title="Enlarge">
+                            <FontAwesomeIcon
+                              icon={faMaximize}
+                              onClick={() =>
+                                handleImageModal(items.urls.regular, items.id)
+                              }
+                            />
+                          </Tooltip>
+                          <Tooltip title="Download">
+                            <DownloadForOfflineIcon onClick={() => handleImageDownload(items.links.download, items.width, items.height)} />
+                          </Tooltip>
                           <p>{items.likes} Likes</p>
                         </div>
                       </div>
