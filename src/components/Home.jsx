@@ -21,8 +21,6 @@ const Home = () => {
     handleImageDownload
 
   } = useContext(Data);
-  console.log(displayImages, "===== displayImages");
-  console.log(showSearchImages, "===== showSearchImages");
   return (
     <>
       <header>
@@ -104,7 +102,7 @@ const Home = () => {
                             <FontAwesomeIcon
                               icon={faMaximize}
                               onClick={() =>
-                                handleImageModal(items.urls.regular, items.id)
+                                handleImageModal(items, index)
                               }
                             />
                           </Tooltip>

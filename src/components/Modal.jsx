@@ -5,6 +5,8 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import CloseIcon from '@mui/icons-material/Close';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
 import { Data } from "./Main";
 
@@ -44,8 +46,27 @@ const closeImageStyles = {
   boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px'
 }
 
+const leftNavArrow = {
+  position: 'absolute',
+  left: '-300px',
+  top: '50%',
+  cursor: 'pointer',
+  zIndex: '1500',
+  color: '#fff'
+}
+
+const rightNavArrow = {
+  position: 'absolute',
+  right: '-300px',
+  top: '50%',
+  cursor: 'pointer',
+  zIndex: '1500',
+  color: '#fff',
+}
+
 const Custommodal = () => {
-  const { modal, showImage, handleModalClose } = useContext(Data);
+  const { modal, handleModalClose, displayImages, handleNextSlide, handlePrevSlide, current } = useContext(Data);
+  console.log(current, "===== current");
 
   return (
     <>
@@ -62,11 +83,22 @@ const Custommodal = () => {
       >
         <Fade in={modal}>
           <Box sx={style}>
-            <div style={imageWrapperStyles}>
-              <img src={showImage} alt="img" style={imageStyles} />
-              <CloseIcon style={closeImageStyles} onClick={handleModalClose} />
-            </div>
+            <ArrowCircleLeftIcon style={leftNavArrow} onClick={handlePrevSlide} />
+            <ArrowCircleRightIcon style={rightNavArrow} onClick={handleNextSlide} />
+            {displayImages.map((imageData, index) => {
+              return (
+                imageData.id === modal && (
+                  index === current && (
+                    <div style={imageWrapperStyles} key={imageData.id}>
+                      <img src={imageData.urls.regular} alt="img" style={imageStyles} />
+                      <CloseIcon style={closeImageStyles} onClick={handleModalClose} />
+                    </div>
+                  )
+                )
+              )
+            })}
           </Box>
+
         </Fade>
       </Modal>
     </>

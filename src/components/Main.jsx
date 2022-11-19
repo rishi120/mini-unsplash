@@ -13,10 +13,10 @@ const Main = () => {
   const [showSearchImages, setShowSearchImages] = useState([]);
   // to display the modal.
   const [modal, showModal] = useState(false);
-  // to display the image inside the modal.
-  const [showImage, setShowImage] = useState(false);
   // to store the input value.
   const [storeInputValue, setStoreInputValue] = useState("");
+  // current index.
+  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     fetchData();
@@ -33,9 +33,9 @@ const Main = () => {
       });
   };
 
-  const handleImageModal = (photo, index) => {
-    showModal(index);
-    setShowImage(photo);
+  const handleImageModal = (items,index) => {
+    showModal(items.id);
+    setCurrent(index);
   };
 
   const handleModalClose = () => {
@@ -58,17 +58,30 @@ const Main = () => {
     saveAs(download + `&w=${width}&h=${height}`, 'image.jpg') // Put your image url here.
   }
 
+  const handleNextSlide = () => {
+    const length = displayImages.length;
+    setCurrent(current === length - 1 ? 0 : current + 1);
+  }
+
+  const handlePrevSlide = () => {
+    const length = displayImages.length;
+    setCurrent(current === length - 1 ? 0 : current - 1);
+  }
+
   const values = {
     displayImages,
     fetchData,
     handleImageModal,
     modal,
-    showImage,
     handleModalClose,
     handleInputValue,
     storeInputValue,
     showSearchImages,
-    handleImageDownload
+    handleImageDownload,
+    handleNextSlide,
+    handlePrevSlide,
+    current
+
   };
   return (
     <Data.Provider value={values}>
