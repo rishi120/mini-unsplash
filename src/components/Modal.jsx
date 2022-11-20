@@ -87,13 +87,11 @@ const Custommodal = () => {
             <ArrowCircleRightIcon style={rightNavArrow} onClick={handleNextSlide} />
             {displayImages.map((imageData, index) => {
               return (
-                imageData.id === modal && (
-                  index === current && (
-                    <div style={imageWrapperStyles} key={imageData.id}>
-                      <img src={imageData.urls.regular} alt="img" style={imageStyles} />
-                      <CloseIcon style={closeImageStyles} onClick={handleModalClose} />
-                    </div>
-                  )
+                index === current && (
+                  <div style={imageWrapperStyles} key={imageData.id}>
+                    <img src={imageData.urls.regular} alt="img" style={imageStyles} />
+                    <CloseIcon style={closeImageStyles} onClick={handleModalClose} />
+                  </div>
                 )
               )
             })}

@@ -33,8 +33,8 @@ const Main = () => {
       });
   };
 
-  const handleImageModal = (items,index) => {
-    showModal(items.id);
+  const handleImageModal = (index) => {
+    showModal(index);
     setCurrent(index);
   };
 
