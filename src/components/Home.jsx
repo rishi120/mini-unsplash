@@ -55,7 +55,7 @@ const Home = () => {
                               <FontAwesomeIcon
                                 icon={faMaximize}
                                 onClick={() =>
-                                  handleImageModal(items.urls.regular, items.id)
+                                  handleImageModal(index)
                                 }
                               />
                             </Tooltip>

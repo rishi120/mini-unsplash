@@ -65,7 +65,7 @@ const rightNavArrow = {
 }
 
 const Custommodal = () => {
-  const { modal, handleModalClose, displayImages, handleNextSlide, handlePrevSlide, current } = useContext(Data);
+  const { modal, handleModalClose, displayImages, handleNextSlide, handlePrevSlide, current, storeInputValue, showSearchImages } = useContext(Data);
   console.log(current, "===== current");
 
   return (
@@ -85,16 +85,29 @@ const Custommodal = () => {
           <Box sx={style}>
             <ArrowCircleLeftIcon style={leftNavArrow} onClick={handlePrevSlide} />
             <ArrowCircleRightIcon style={rightNavArrow} onClick={handleNextSlide} />
-            {displayImages.map((imageData, index) => {
-              return (
-                index === current && (
-                  <div style={imageWrapperStyles} key={imageData.id}>
-                    <img src={imageData.urls.regular} alt="img" style={imageStyles} />
-                    <CloseIcon style={closeImageStyles} onClick={handleModalClose} />
-                  </div>
+            {storeInputValue ? (
+              showSearchImages.map((imageData, index) => {
+                return (
+                  index === current && (
+                    <div style={imageWrapperStyles} key={imageData.id}>
+                      <img src={imageData.urls.regular} alt="img" style={imageStyles} />
+                      <CloseIcon style={closeImageStyles} onClick={handleModalClose} />
+                    </div>
+                  )
                 )
-              )
-            })}
+              })
+            ) : (
+              displayImages.map((imageData, index) => {
+                return (
+                  index === current && (
+                    <div style={imageWrapperStyles} key={imageData.id}>
+                      <img src={imageData.urls.regular} alt="img" style={imageStyles} />
+                      <CloseIcon style={closeImageStyles} onClick={handleModalClose} />
+                    </div>
+                  )
+                )
+              })
+            )}
           </Box>
 
         </Fade>
