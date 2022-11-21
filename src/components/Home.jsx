@@ -9,6 +9,7 @@ import backgroundImage from "../images/banner.jpg";
 import moment from "moment/moment";
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
 import Tooltip from '@mui/material/Tooltip';
+import SearchIcon from '@mui/icons-material/Search';
 
 const Home = () => {
   const {
@@ -16,9 +17,10 @@ const Home = () => {
     fetchData,
     handleImageModal,
     handleInputValue,
-    storeInputValue,
+    searchImage,
     showSearchImages,
-    handleImageDownload
+    handleImageDownload,
+    handleImageSearch
 
   } = useContext(Data);
   return (
@@ -26,7 +28,10 @@ const Home = () => {
       <header>
         <div className={styles.container}>
           <div className={styles.searchWrapper}>
-            <input type="text" placeholder="Search high-resolution photos" onChange={(e) => handleInputValue(e.target.value)}></input>
+            <div className={styles.inputSearchWrapper}>
+              <input type="text" placeholder="Search high-resolution photos" onChange={(e) => handleInputValue(e.target.value)}></input>
+              <SearchIcon className={styles.searchIcon} onClick={() => handleImageSearch()} />
+            </div>
           </div>
           <div className={styles.backgroundImage}>
             <img src={backgroundImage} alt="Background Image" />
@@ -36,7 +41,7 @@ const Home = () => {
       </header>
       <section>
         <div>
-          {storeInputValue ? (
+          {searchImage ? (
             <>
               <div className={styles.photoGrid}>
                 {showSearchImages.map((items, index) => {

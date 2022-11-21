@@ -17,6 +17,8 @@ const Main = () => {
   const [storeInputValue, setStoreInputValue] = useState("");
   // current index.
   const [current, setCurrent] = useState(0);
+  // to determine the search state.
+  const [searchImage, setSearchImage] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -42,16 +44,25 @@ const Main = () => {
     showModal(false);
   }
 
-  const handleInputValue = debounce((e) => {
+  const handleInputValue = (e) => {
     setStoreInputValue(e);
+    if (e.length === 0) {
+      setSearchImage(false);
+      fetchData();
+    }
+  };
+
+  const handleImageSearch = debounce(() => {
+    setSearchImage(true);
     axios
-      .get(baseUrl + `/search/photos/?client_id=${accessKey}&page=1&query=${e}`)
+      .get(baseUrl + `/search/photos/?client_id=${accessKey}&page=1&query=${storeInputValue}`)
       .then((response) => {
         setShowSearchImages(response.data.results);
       })
       .catch((error) => {
         console.log(error, "====== error");
       });
+
   }, 1000);
 
   const handleImageDownload = (download, width, height) => {
@@ -61,6 +72,7 @@ const Main = () => {
   const handleNextSlide = () => {
     const length = displayImages.length;
     setCurrent(current === length - 1 ? 0 : current + 1);
+    // fetchData();
   }
 
   const handlePrevSlide = () => {
@@ -75,12 +87,13 @@ const Main = () => {
     modal,
     handleModalClose,
     handleInputValue,
-    storeInputValue,
     showSearchImages,
     handleImageDownload,
     handleNextSlide,
     handlePrevSlide,
-    current
+    current,
+    handleImageSearch,
+    searchImage
 
   };
   return (
