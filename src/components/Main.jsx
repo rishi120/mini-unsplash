@@ -4,6 +4,7 @@ import { baseUrl } from "./utils/baseUrl";
 import Home from "./Home";
 import { debounce } from "lodash";
 import { saveAs } from 'file-saver'
+import ScrollToTop from "react-scroll-to-top";
 
 const Data = createContext();
 
@@ -62,6 +63,10 @@ const Main = () => {
       .catch((error) => {
         console.log(error, "====== error");
       });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    })
 
   }, 1000);
 
@@ -98,6 +103,7 @@ const Main = () => {
   };
   return (
     <Data.Provider value={values}>
+      <ScrollToTop smooth color="#111" top="1000" />
       <Home />
     </Data.Provider>
   );

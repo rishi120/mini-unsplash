@@ -61,6 +61,12 @@ header {
                     width: 22px;
                     border-left: 1px solid #ccc;
                     padding-left: 10px;
+                    transition: 0.2s ease;
+
+                    &:hover {
+                        color: #111;
+                        transform: scale(1.08);
+                    }
                 }
             }
 
