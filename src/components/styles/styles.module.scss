@@ -36,6 +36,18 @@ header {
                 position: absolute;
                 width: 60%;
 
+                .inputValidation {
+                    border: 2px #ff0000 solid;
+                    animation: blink 0.8s;
+                    animation-iteration-count: 3;
+                }
+
+                @keyframes blink {
+                    50% {
+                        border-color: #fff;
+                    }
+                }
+
                 input {
                     width: 100%;
                     padding: 10px;

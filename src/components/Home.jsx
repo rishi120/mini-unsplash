@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import styles from "./styles/styles.module.scss";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,16 +20,19 @@ const Home = () => {
     searchImage,
     showSearchImages,
     handleImageDownload,
-    handleImageSearch
+    handleImageSearch,
+    addInputValidation,
+    selectInput
 
   } = useContext(Data);
+  console.log(displayImages, "===== displayImages");
   return (
     <>
       <header>
         <div className={styles.container}>
           <div className={styles.searchWrapper}>
             <div className={styles.inputSearchWrapper}>
-              <input type="text" placeholder="Search high-resolution photos" onChange={(e) => handleInputValue(e.target.value)}></input>
+              <input type="text" ref={selectInput} placeholder="Search high-resolution photos" className={addInputValidation ? styles.inputValidation : ""} onChange={(e) => handleInputValue(e.target.value)}></input>
               <SearchIcon className={styles.searchIcon} onClick={() => handleImageSearch()} />
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext, useRef } from "react";
 import axios from "axios";
 import { baseUrl } from "./utils/baseUrl";
 import Home from "./Home";
@@ -20,6 +20,10 @@ const Main = () => {
   const [current, setCurrent] = useState(0);
   // to determine the search state.
   const [searchImage, setSearchImage] = useState(false);
+  // to add a validation if input field is empty.
+  const [addInputValidation, setAddInputValidation] = useState(false);
+
+  const selectInput = useRef(null);
 
   useEffect(() => {
     fetchData();
@@ -37,6 +41,7 @@ const Main = () => {
   };
 
   const handleImageModal = (index) => {
+    console.log(index, "===== index");
     showModal(index);
     setCurrent(index);
   };
@@ -47,6 +52,7 @@ const Main = () => {
 
   const handleInputValue = (e) => {
     setStoreInputValue(e);
+    setAddInputValidation(false);
     if (e.length === 0) {
       setSearchImage(false);
       fetchData();
@@ -54,21 +60,28 @@ const Main = () => {
   };
 
   const handleImageSearch = debounce(() => {
-    setSearchImage(true);
-    axios
-      .get(baseUrl + `/search/photos/?client_id=${accessKey}&page=1&query=${storeInputValue}`)
-      .then((response) => {
-        setShowSearchImages(response.data.results);
+    if (storeInputValue.length === 0) {
+      setTimeout(() => {
+        selectInput.current && selectInput.current.focus();
+      }, 100);
+      setAddInputValidation(true);
+      setSearchImage(false);
+    } else {
+      setSearchImage(true);
+      axios
+        .get(baseUrl + `/search/photos/?client_id=${accessKey}&page=1&query=${storeInputValue}`)
+        .then((response) => {
+          setShowSearchImages(response.data.results);
+        })
+        .catch((error) => {
+          console.log(error, "====== error");
+        });
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
       })
-      .catch((error) => {
-        console.log(error, "====== error");
-      });
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    })
-
-  }, 1000);
+    }
+  }, 500);
 
   const handleImageDownload = (download, width, height) => {
     saveAs(download + `&w=${width}&h=${height}`, 'image.jpg') // Put your image url here.
@@ -98,7 +111,9 @@ const Main = () => {
     handlePrevSlide,
     current,
     handleImageSearch,
-    searchImage
+    searchImage,
+    addInputValidation,
+    selectInput
 
   };
   return (
