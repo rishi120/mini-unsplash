@@ -22,6 +22,8 @@ const Main = () => {
   const [searchImage, setSearchImage] = useState(false);
   // to add a validation if input field is empty.
   const [addInputValidation, setAddInputValidation] = useState(false);
+  // show prev indicator.
+  const [showPrevIcon, setShowPrevIcon] = useState(true);
 
   const selectInput = useRef(null);
 
@@ -41,7 +43,6 @@ const Main = () => {
   };
 
   const handleImageModal = (index) => {
-    console.log(index, "===== index");
     showModal(index);
     setCurrent(index);
   };
@@ -83,19 +84,38 @@ const Main = () => {
     }
   }, 500);
 
-  const handleImageDownload = (download, width, height) => {
-    saveAs(download + `&w=${width}&h=${height}`, 'image.jpg') // Put your image url here.
+  const handleImageDownload = async (photo_id) => {
+    const headers = {
+      Authorization: accessKey
+    }
+    const response = await axios({
+      url: baseUrl + `photos/${photo_id}/download`,
+      method: 'GET',
+      headers,
+      responseType: 'blob',
+    });
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'photo.jpg');
+    document.body.appendChild(link);
+    link.click();
+
+    // saveAs(download + `&w=${width}&h=${height}`, 'image.jpg') // Put your image url here.
   }
 
   const handleNextSlide = () => {
     const length = displayImages.length;
+    setShowPrevIcon(true);
     setCurrent(current === length - 1 ? 0 : current + 1);
     // fetchData();
   }
 
   const handlePrevSlide = () => {
-    const length = displayImages.length;
-    setCurrent(current === length - 1 ? 0 : current - 1);
+    if (current === 1) {
+      setShowPrevIcon(false);
+    }
+    setCurrent(current === 0 ? 0 : current - 1);
   }
 
   const values = {
@@ -113,7 +133,8 @@ const Main = () => {
     handleImageSearch,
     searchImage,
     addInputValidation,
-    selectInput
+    selectInput,
+    showPrevIcon
 
   };
   return (

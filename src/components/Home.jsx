@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 import styles from "./styles/styles.module.scss";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -38,7 +38,7 @@ const Home = () => {
           </div>
           <div className={styles.backgroundImage}>
             <img src={backgroundImage} alt="Background Image" />
-            <h1 className={styles.heading}>A Simple <br />Intuitive Photo App</h1>
+            <h1 className={styles.heading}>Photosplash <br />Intuitive Photo App</h1>
           </div>
         </div>
       </header>
@@ -68,7 +68,7 @@ const Home = () => {
                               />
                             </Tooltip>
                             <Tooltip title="Download">
-                              <DownloadForOfflineIcon onClick={() => handleImageDownload(items.links.download, items.width, items.height)} />
+                              <DownloadForOfflineIcon onClick={() => handleImageDownload(items.id)} />
                             </Tooltip>
                             <p>{items.likes} Likes</p>
                           </div>
@@ -115,7 +115,7 @@ const Home = () => {
                             />
                           </Tooltip>
                           <Tooltip title="Download">
-                            <DownloadForOfflineIcon onClick={() => handleImageDownload(items.links.download, items.width, items.height)} />
+                            <DownloadForOfflineIcon onClick={() => handleImageDownload(items.id)} />
                           </Tooltip>
                           <p>{items.likes} Likes</p>
                         </div>
