@@ -24,7 +24,8 @@ const Home = () => {
     handleImageSearch,
     addInputValidation,
     selectInput,
-    storeTrendingTopics
+    storeTrendingTopics,
+    dataLoader
 
   } = useContext(Data);
 
@@ -46,7 +47,7 @@ const Home = () => {
         <Searchcomponent />
       </header>
     )
-  }, [selectInput, handleInputValue, handleImageSearch, storeTrendingTopics]);
+  }, [selectInput, handleInputValue, handleImageSearch, storeTrendingTopics, dataLoader]);
 
   return (
     <>

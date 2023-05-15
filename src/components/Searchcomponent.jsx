@@ -3,13 +3,13 @@ import styles from "./styles/styles.module.scss";
 import { Data } from "./Main";
 
 const SearchComponent = () => {
-  const { storeTrendingTopics } = useContext(Data);
-  console.log(storeTrendingTopics, "===== storeTrendingTopics");
+  const { storeTrendingTopics, dataLoader } = useContext(Data);
 
   const RenderTrendingTopics = useMemo(() => {
     return (
-      <div>
-        <h1>Trending Topics</h1>
+      <div className={styles.searchComponentWrapper}>
+        <h4>Trending Topics</h4>
+        {dataLoader && <p>Loading...</p>}
         <ul>
           {storeTrendingTopics.map((topic, index) => (
             <li key={index}>{topic}</li>

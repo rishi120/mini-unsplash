@@ -26,6 +26,8 @@ const Main = () => {
   const [showPrevIcon, setShowPrevIcon] = useState(true);
   // store the trending topics.
   const [storeTrendingTopics, setStoreTrendingTopics] = useState([]);
+  // to show data loader.
+  const [dataLoader, setDataLoader] = useState(true);
 
   const selectInput = useRef(null);
 
@@ -38,6 +40,7 @@ const Main = () => {
       .get(baseUrl + `/photos/random?client_id=${accessKey}&count=10`)
       .then((response) => {
         setDisplayImages([...displayImages, ...response.data]);
+        fetchTrendingSearchTerms();
         fetchTrendingTopics();
       })
       .catch((error) => {
@@ -45,15 +48,40 @@ const Main = () => {
       });
   };
 
+  const fetchTrendingSearchTerms = () => {
+    axios
+      .get(baseUrl + `collections?client_id=${accessKey}`)
+      .then((response) => {
+        const storeTheTagsForTheSearchTerm = [];
+        response.data.forEach((items) => {
+          items.tags.forEach((fetchTags) => {
+            if (fetchTags.type === "search") {
+              storeTheTagsForTheSearchTerm.push(fetchTags);
+            }
+          });
+        });
+
+        const firstNineTags = storeTheTagsForTheSearchTerm.slice(0, 9);
+        console.log(firstNineTags, "===== firstNineTags");
+      })
+      .catch((error) => {
+        console.log(error, "====== error");
+        setDataLoader(false);
+      });
+  }
+
   const fetchTrendingTopics = () => {
+    setDataLoader(true);
     axios
       .get(baseUrl + `/search/photos?client_id=${accessKey}&query=trending`)
       .then((response) => {
         const trendingTopics = response.data.results.map(result => result.tags[0].title);
         setStoreTrendingTopics(trendingTopics);
+        setDataLoader(false);
       })
       .catch((error) => {
         console.log(error, "====== error");
+        setDataLoader(false);
       });
   }
 
@@ -150,7 +178,8 @@ const Main = () => {
     addInputValidation,
     selectInput,
     showPrevIcon,
-    storeTrendingTopics
+    storeTrendingTopics,
+    dataLoader
 
   };
 
@@ -178,7 +207,8 @@ const Main = () => {
     addInputValidation,
     selectInput,
     showPrevIcon,
-    storeTrendingTopics]);
+    storeTrendingTopics,
+    dataLoader]);
 
   return Renderoptimizedmaincomponent
 };

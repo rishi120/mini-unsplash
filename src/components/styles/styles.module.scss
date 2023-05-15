@@ -20,6 +20,8 @@ body {
 }
 
 header {
+    position: relative;
+
     .container {
         .searchWrapper {
             position: fixed;
@@ -106,6 +108,50 @@ header {
                 z-index: 10;
                 font-size: 40px;
 
+            }
+        }
+    }
+
+    .searchComponentWrapper {
+        position: fixed;
+        top: 55px;
+        width: 60%;
+        background: #fff;
+        border-radius: 5px;
+        left: 36px;
+        box-shadow: 0 4px 12px #00000014, 0 0 1px #0100001a;
+        border: 1px solid #eee;
+        z-index: 20;
+        padding: 0 20px 0 20px;
+        height: 350px;
+
+        h4 {
+            font-family: "Source Sans Pro", sans-serif;
+            text-align: left;
+            border-bottom: 1px solid #dedede;
+            padding-bottom: 5px;
+        }
+
+        p {
+            text-align: left;
+            color: #ff0000;
+            font-weight: 600;
+        }
+
+        ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: space-between;
+            padding-left: 0;
+
+            li {
+                text-transform: capitalize;
+                border: 1px solid #dedede;
+                border-radius: 5px;
+                padding: 8px;
+                font-family: "Source Sans Pro", sans-serif;
+                font-size: 15px;
+                cursor: pointer;
             }
         }
     }
