@@ -28,6 +28,8 @@ const Main = () => {
   const [storeTrendingTopics, setStoreTrendingTopics] = useState([]);
   // to show data loader.
   const [dataLoader, setDataLoader] = useState(true);
+  // to store the trending search terms.
+  const[storeTrendingSearchTerms, setStoreTrendingSearchTerms] = useState([]);
 
   const selectInput = useRef(null);
 
@@ -63,6 +65,7 @@ const Main = () => {
 
         const firstNineTags = storeTheTagsForTheSearchTerm.slice(0, 9);
         console.log(firstNineTags, "===== firstNineTags");
+        setStoreTrendingSearchTerms(firstNineTags);
       })
       .catch((error) => {
         console.log(error, "====== error");
@@ -179,7 +182,8 @@ const Main = () => {
     selectInput,
     showPrevIcon,
     storeTrendingTopics,
-    dataLoader
+    dataLoader,
+    storeTrendingSearchTerms
 
   };
 
@@ -208,7 +212,8 @@ const Main = () => {
     selectInput,
     showPrevIcon,
     storeTrendingTopics,
-    dataLoader]);
+    dataLoader,
+    storeTrendingSearchTerms]);
 
   return Renderoptimizedmaincomponent
 };

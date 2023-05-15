@@ -36,7 +36,7 @@ header {
 
             .inputSearchWrapper {
                 position: absolute;
-                width: 60%;
+                width: 65%;
 
                 .inputValidation {
                     border: 2px #ff0000 solid;
@@ -115,7 +115,7 @@ header {
     .searchComponentWrapper {
         position: fixed;
         top: 55px;
-        width: 60%;
+        width: 65%;
         background: #fff;
         border-radius: 5px;
         left: 36px;
@@ -123,35 +123,44 @@ header {
         border: 1px solid #eee;
         z-index: 20;
         padding: 0 20px 0 20px;
-        height: 350px;
+        height: 300px;
 
-        h4 {
-            font-family: "Source Sans Pro", sans-serif;
-            text-align: left;
-            border-bottom: 1px solid #dedede;
-            padding-bottom: 5px;
-        }
-
-        p {
-            text-align: left;
-            color: #ff0000;
-            font-weight: 600;
-        }
-
-        ul {
-            list-style-type: none;
-            display: flex;
-            justify-content: space-between;
-            padding-left: 0;
-
-            li {
-                text-transform: capitalize;
-                border: 1px solid #dedede;
-                border-radius: 5px;
-                padding: 8px;
+        .trendingSearchComponentWrapper {
+            padding-bottom: 10px;
+            h4 {
                 font-family: "Source Sans Pro", sans-serif;
-                font-size: 15px;
-                cursor: pointer;
+                text-align: left;
+                border-bottom: 1px solid #dedede;
+                padding-bottom: 5px;
+            }
+
+            p {
+                text-align: left;
+                color: #ff0000;
+                font-weight: 600;
+            }
+
+            ul {
+                list-style-type: none;
+                display: flex;
+                justify-content: space-between;
+                padding-left: 0;
+
+                li {
+                    display: flex;
+                    justify-content: space-between;
+                    text-transform: capitalize;
+                    border: 1px solid #dedede;
+                    border-radius: 5px;
+                    padding: 8px;
+                    font-family: "Source Sans Pro", sans-serif;
+                    font-size: 15px;
+                    cursor: pointer;
+                    img{
+                        width: 15px;
+                        margin-right: 10px;
+                    }
+                }
             }
         }
     }
