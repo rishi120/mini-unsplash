@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useRef } from "react";
+import React, { useState, useEffect, createContext, useRef, useMemo } from "react";
 import axios from "axios";
 import { baseUrl } from "./utils/baseUrl";
 import Home from "./Home";
@@ -24,6 +24,8 @@ const Main = () => {
   const [addInputValidation, setAddInputValidation] = useState(false);
   // show prev indicator.
   const [showPrevIcon, setShowPrevIcon] = useState(true);
+  // store the trending topics.
+  const [storeTrendingTopics, setStoreTrendingTopics] = useState([]);
 
   const selectInput = useRef(null);
 
@@ -33,14 +35,27 @@ const Main = () => {
 
   const fetchData = () => {
     axios
-      .get(baseUrl + `/photos/random/?client_id=${accessKey}&count=10`)
+      .get(baseUrl + `/photos/random?client_id=${accessKey}&count=10`)
       .then((response) => {
         setDisplayImages([...displayImages, ...response.data]);
+        fetchTrendingTopics();
       })
       .catch((error) => {
         console.log(error, "====== error");
       });
   };
+
+  const fetchTrendingTopics = () => {
+    axios
+      .get(baseUrl + `/search/photos?client_id=${accessKey}&query=trending`)
+      .then((response) => {
+        const trendingTopics = response.data.results.map(result => result.tags[0].title);
+        setStoreTrendingTopics(trendingTopics);
+      })
+      .catch((error) => {
+        console.log(error, "====== error");
+      });
+  }
 
   const handleImageModal = (index) => {
     showModal(index);
@@ -70,7 +85,7 @@ const Main = () => {
     } else {
       setSearchImage(true);
       axios
-        .get(baseUrl + `/search/photos/?client_id=${accessKey}&page=1&query=${storeInputValue}`)
+        .get(baseUrl + `/search/photos?client_id=${accessKey}&page=1&query=${storeInputValue}`)
         .then((response) => {
           setShowSearchImages(response.data.results);
         })
@@ -134,15 +149,38 @@ const Main = () => {
     searchImage,
     addInputValidation,
     selectInput,
-    showPrevIcon
+    showPrevIcon,
+    storeTrendingTopics
 
   };
-  return (
-    <Data.Provider value={values}>
-      <ScrollToTop smooth color="#111" top="1000" />
-      <Home />
-    </Data.Provider>
-  );
+
+  const Renderoptimizedmaincomponent = useMemo(() => {
+    return (
+      <Data.Provider value={values}>
+        <ScrollToTop smooth color="#111" top="1000" />
+        <Home />
+      </Data.Provider>
+
+    )
+  }, [displayImages,
+    fetchData,
+    handleImageModal,
+    modal,
+    handleModalClose,
+    handleInputValue,
+    showSearchImages,
+    handleImageDownload,
+    handleNextSlide,
+    handlePrevSlide,
+    current,
+    handleImageSearch,
+    searchImage,
+    addInputValidation,
+    selectInput,
+    showPrevIcon,
+    storeTrendingTopics]);
+
+  return Renderoptimizedmaincomponent
 };
 
 export default Main;

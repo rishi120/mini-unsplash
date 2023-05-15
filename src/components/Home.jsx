@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import styles from "./styles/styles.module.scss";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +10,7 @@ import moment from "moment/moment";
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
 import Tooltip from '@mui/material/Tooltip';
 import SearchIcon from '@mui/icons-material/Search';
+import Searchcomponent from "./Searchcomponent";
 
 const Home = () => {
   const {
@@ -22,12 +23,13 @@ const Home = () => {
     handleImageDownload,
     handleImageSearch,
     addInputValidation,
-    selectInput
+    selectInput,
+    storeTrendingTopics
 
   } = useContext(Data);
-  console.log(displayImages, "===== displayImages");
-  return (
-    <>
+
+  const Renderheadercomponent = useMemo(() => {
+    return (
       <header>
         <div className={styles.container}>
           <div className={styles.searchWrapper}>
@@ -41,7 +43,14 @@ const Home = () => {
             <h1 className={styles.heading}>Photosplash <br />Intuitive Photo App</h1>
           </div>
         </div>
+        <Searchcomponent />
       </header>
+    )
+  }, [selectInput, handleInputValue, handleImageSearch, storeTrendingTopics]);
+
+  return (
+    <>
+      {Renderheadercomponent}
       <section>
         <div>
           {searchImage ? (
