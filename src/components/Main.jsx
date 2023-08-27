@@ -29,7 +29,7 @@ const Main = () => {
   // to show data loader.
   const [dataLoader, setDataLoader] = useState(true);
   // to store the trending search terms.
-  const[storeTrendingSearchTerms, setStoreTrendingSearchTerms] = useState([]);
+  const [storeTrendingSearchTerms, setStoreTrendingSearchTerms] = useState([]);
 
   const selectInput = useRef(null);
 
@@ -89,8 +89,9 @@ const Main = () => {
   }
 
   const handleImageModal = (index) => {
-    showModal(index);
+    showModal(index + 1);
     setCurrent(index);
+    setShowPrevIcon(index === 0 ? false : true);
   };
 
   const handleModalClose = () => {

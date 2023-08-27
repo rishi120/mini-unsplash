@@ -10,7 +10,7 @@ import moment from "moment/moment";
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
 import Tooltip from '@mui/material/Tooltip';
 import SearchIcon from '@mui/icons-material/Search';
-import Searchcomponent from "./Searchcomponent";
+// import Searchcomponent from "./Searchcomponent";
 
 const Home = () => {
   const {
@@ -45,7 +45,7 @@ const Home = () => {
             <h1 className={styles.heading}>Photosplash <br />Intuitive Photo App</h1>
           </div>
         </div>
-        <Searchcomponent />
+        {/* <Searchcomponent /> */}
       </header>
     )
   }, [selectInput, handleInputValue, handleImageSearch, storeTrendingTopics, dataLoader,storeTrendingSearchTerms]);
