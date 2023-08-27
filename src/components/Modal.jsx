@@ -65,7 +65,7 @@ const rightNavArrow = {
 }
 
 const Custommodal = () => {
-  const { modal, handleModalClose, displayImages, handleNextSlide, handlePrevSlide, current, searchImage, showSearchImages, showPrevIcon } = useContext(Data);
+  const { modal, handleModalClose, displayImages, handleNextSlide, handlePrevSlide, current, searchImage, showSearchImages, showPrevIcon, showNextIcon } = useContext(Data);
 
   return (
     <>
@@ -83,7 +83,7 @@ const Custommodal = () => {
         <Fade in={modal}>
           <Box sx={style}>
             {showPrevIcon && (<ArrowCircleLeftIcon style={leftNavArrow} onClick={handlePrevSlide} />)}
-            <ArrowCircleRightIcon style={rightNavArrow} onClick={handleNextSlide} />
+            {showNextIcon && (<ArrowCircleRightIcon style={rightNavArrow} onClick={handleNextSlide} />)}
             {searchImage ? (
               showSearchImages.map((imageData, index) => {
                 return (

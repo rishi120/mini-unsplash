@@ -24,6 +24,8 @@ const Main = () => {
   const [addInputValidation, setAddInputValidation] = useState(false);
   // show prev indicator.
   const [showPrevIcon, setShowPrevIcon] = useState(true);
+  // show next indicator.
+  const [showNextIcon, setShowNextIcon] = useState(true);
   // store the trending topics.
   const [storeTrendingTopics, setStoreTrendingTopics] = useState([]);
   // to show data loader.
@@ -89,9 +91,15 @@ const Main = () => {
   }
 
   const handleImageModal = (index) => {
+    console.log(showSearchImages, "==== showSearchImages");
     showModal(index + 1);
     setCurrent(index);
     setShowPrevIcon(index === 0 ? false : true);
+    if ((index === showSearchImages.length - 1) || (index === displayImages.length - 1)) {
+      setShowNextIcon(false);
+    } else {
+      setShowNextIcon(true);
+    }
   };
 
   const handleModalClose = () => {
@@ -153,10 +161,19 @@ const Main = () => {
 
   const handleNextSlide = () => {
     const length = displayImages.length;
+
     setShowPrevIcon(true);
-    setCurrent(current === length - 1 ? 0 : current + 1);
-    // fetchData();
+
+    const nextCurrent = current === length - 1 ? 0 : current + 1;
+    setCurrent(nextCurrent);
+
+    if ((nextCurrent === showSearchImages.length - 1) || (nextCurrent === length - 1)) {
+      setShowNextIcon(false);
+    } else {
+      setShowNextIcon(true);
+    }
   }
+
 
   const handlePrevSlide = () => {
     if (current === 1) {
@@ -182,6 +199,7 @@ const Main = () => {
     addInputValidation,
     selectInput,
     showPrevIcon,
+    showNextIcon,
     storeTrendingTopics,
     dataLoader,
     storeTrendingSearchTerms
@@ -212,6 +230,7 @@ const Main = () => {
     addInputValidation,
     selectInput,
     showPrevIcon,
+    showNextIcon,
     storeTrendingTopics,
     dataLoader,
     storeTrendingSearchTerms]);
