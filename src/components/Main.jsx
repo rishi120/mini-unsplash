@@ -167,11 +167,16 @@ const Main = () => {
     const nextCurrent = current === length - 1 ? 0 : current + 1;
     setCurrent(nextCurrent);
 
-    if ((nextCurrent === showSearchImages.length - 1) || (nextCurrent === length - 1)) {
+    if (
+      (nextCurrent === showSearchImages.length - 1) ||
+      (nextCurrent === displayImages.length - 1) ||
+      (nextCurrent === length - 1)
+    ) {
       setShowNextIcon(false);
     } else {
       setShowNextIcon(true);
     }
+
   }
 
 
